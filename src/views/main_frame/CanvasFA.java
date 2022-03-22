@@ -112,6 +112,8 @@ public class CanvasFA extends JPanel{
 	}
 
 	public void restartAutomaton(){
-		new StateElement();
+		states.removeAll(states);
+		transitions.removeAll(transitions);
+		this.drawState();
 	}
 }

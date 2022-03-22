@@ -20,7 +20,9 @@ public class ControlApp implements ActionListener{
         switch(Commands.valueOf(e.getActionCommand())){
             case C_RESTART:
                 // reiniciar el automata 
+                System.out.println("entre");
                 frame.restartAutomaton();
+                System.out.println("reinicie");
 
                 break;
             case C_VALIDATE_WORD:
