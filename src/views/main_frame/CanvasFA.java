@@ -1,6 +1,10 @@
 package views.main_frame;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -8,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+import tests.views.StateType;
 import views.elements.StateElement;
 import views.elements.Transition; 
 
@@ -42,18 +47,34 @@ public class CanvasFA extends JPanel{
 				counter++;
 			}
 			if(!isOverlapping) {
+			
 				states.add(new StateElement(e.getX()-CIRCLE_RADIUS/2, e.getY()-CIRCLE_RADIUS/2, "q" + states.size()));
 				for(StateElement state : states) {
 					drawState(state.x, state.y);
 				}
+				
 			}else if(!creatingTransition) {
-				System.out.println("Creating Transition");
-				Transition t = new Transition();
-				t.start = selected;
-				creatingTransition = true;
-				transitions.add(t);
+				if(e.getButton()==1) {
+					System.out.println("Creating Transition");
+					Transition t = new Transition();
+					t.start = selected;
+					creatingTransition = true;
+					transitions.add(t);		
+									}
+				if (e.getButton()==3) {
+					MyJOption o = new MyJOption();
+					int option=o.myMenu();
+					if(option==0) {
+						selected.setType(StateType.INITIAL);
+					}else if(option==1) {
+						selected.setType(StateType.FINAL);
+					}
+				}
+				
 			}else if(creatingTransition) {
 				transitions.get(transitions.size()-1).end = selected;
+				MyJOption o = new MyJOption();
+				transitions.get(transitions.size()-1).condicion = o.myWord("Ingresa una condicion");
 				creatingTransition = false;
 				for(Transition t : transitions) {
 					System.out.println(t.start.tag + "->" + t.end.tag);
@@ -62,6 +83,7 @@ public class CanvasFA extends JPanel{
 			drawState();
 		}
 		});
+		
 	}
 	private void drawState(int x, int y) {
 		final int CURR_X = se.getX();
@@ -82,6 +104,8 @@ public class CanvasFA extends JPanel{
             repaint(se.getX(), se.getY(), CIRCLE_RADIUS+OFFSET, CIRCLE_RADIUS+OFFSET);
         }
     }
+	
+	
 	private void drawState(){
 		repaint();
 	}
@@ -101,6 +125,10 @@ public class CanvasFA extends JPanel{
         g2.setRenderingHints(hints);
         for(Transition t : transitions) {
         	t.drawTransition(g2);
+        	if (t.condicion!=null) {
+        		t.drawCondition(g2);
+			}
+        
         }
         for(StateElement state : states) {
         	state.paintState(g2);
@@ -109,11 +137,5 @@ public class CanvasFA extends JPanel{
 	
 	private double dist(float x1, float y1, float x2, float y2) {
 		return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
-	}
-
-	public void restartAutomaton(){
-		states.removeAll(states);
-		transitions.removeAll(transitions);
-		this.drawState();
 	}
 }

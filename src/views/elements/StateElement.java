@@ -10,7 +10,7 @@ public class StateElement {
 	public int x = 50,y = 50;
 	public String tag;
 	private int size = CanvasFA.CIRCLE_RADIUS;
-	private StateType type = StateType.FINAL;
+	private StateType type = StateType.DEFAULT;
 	public StateElement() {
 		
 	}
