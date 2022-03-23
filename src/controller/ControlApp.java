@@ -38,7 +38,6 @@ public class ControlApp implements ActionListener{
 
     public void validateWord() {
 		String name = JOptionPane.showInputDialog("Ingresa la palabra a validar"); 
-
 		if (JOptionPane.showConfirmDialog(frame, "¿Seguro que desea validar esta palabra: " + name + "?",
 				"Pregunta", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 			// llamar al metodo de validacion del modelo y enviar la palabra guardada en name

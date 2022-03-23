@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import views.main_frame.CanvasFA;
 
 public class Transition {
+	
 	public StateElement start;
 	public StateElement end;
 	

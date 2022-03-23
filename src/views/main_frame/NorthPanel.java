@@ -12,7 +12,11 @@ import controller.Commands;
 
 public class NorthPanel extends JPanel{
     
-    private JButton restartAutomaton, validateWord;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JButton restartAutomaton, validateWord;
 
     public NorthPanel(ActionListener actionListener){
         restartAutomaton = new JButton();
