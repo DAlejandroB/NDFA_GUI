@@ -3,7 +3,7 @@ package views.elements;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import tests.views.StateType;
+import utils.StateType;
 import views.main_frame.CanvasFA;
 
 public class StateElement {
@@ -33,6 +33,9 @@ public class StateElement {
     }
     public void setType(StateType type) {
     	this.type = type;
+    }
+    public StateType getType() {
+    	return this.type;
     }
     public void paintState(Graphics g){
         g.setColor(new Color(255,255,190));

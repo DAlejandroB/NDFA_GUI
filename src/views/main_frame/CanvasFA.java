@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import tests.views.StateType;
+import controller.ControlApp;
+import utils.StateType;
 import views.elements.StateElement;
 import views.elements.Transition; 
 
@@ -27,13 +28,13 @@ public class CanvasFA extends JPanel{
     private ArrayList<Transition> transitions = new ArrayList<Transition>();
     private boolean creatingTransition = false;
     
-	public CanvasFA(int width, int height) {
+	public CanvasFA(int width, int height, ControlApp control) {
 		
 		setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		addMouseListener(new MouseAdapter() {
 		public void mousePressed(MouseEvent e) {
-			
+			//Checks if there's no State in the clicked position if there's one it takes it as first State for a new Transition and the next one clicked is the final State
 			boolean isOverlapping = false;
 			StateElement selected = null;
 			
@@ -47,7 +48,8 @@ public class CanvasFA extends JPanel{
 				counter++;
 			}
 			if(!isOverlapping) {
-			
+				
+				control.addState("q" + states.size());
 				states.add(new StateElement(e.getX()-CIRCLE_RADIUS/2, e.getY()-CIRCLE_RADIUS/2, "q" + states.size()));
 				for(StateElement state : states) {
 					drawState(state.x, state.y);
@@ -55,7 +57,6 @@ public class CanvasFA extends JPanel{
 				
 			}else if(!creatingTransition) {
 				if(e.getButton()==1) {
-					System.out.println("Creating Transition");
 					Transition t = new Transition();
 					t.start = selected;
 					creatingTransition = true;
@@ -65,20 +66,34 @@ public class CanvasFA extends JPanel{
 					MyJOption o = new MyJOption();
 					int option=o.myMenu();
 					if(option==0) {
-						selected.setType(StateType.INITIAL);
+						boolean initialSetted = false;
+						for(StateElement s : states) {
+							if(s.getType() == StateType.INITIAL) {
+								initialSetted = true;
+							}
+						}
+						if(!initialSetted)
+							selected.setType(StateType.INITIAL); control.updateState(selected.tag, StateType.INITIAL);
 					}else if(option==1) {
 						selected.setType(StateType.FINAL);
+						control.updateState(selected.tag, StateType.FINAL);
 					}
 				}
 				
 			}else if(creatingTransition) {
+				Transition aux = transitions.get(transitions.size()-1);
 				transitions.get(transitions.size()-1).end = selected;
 				MyJOption o = new MyJOption();
 				transitions.get(transitions.size()-1).condicion = o.myWord("Ingresa una condicion");
 				creatingTransition = false;
+				int index = 0;
 				for(Transition t : transitions) {
-					System.out.println(t.start.tag + "->" + t.end.tag);
+					if(aux.start == t.start && aux.end == t.end && aux.condicion != t.condicion) {
+						index ++;
+					}
 				}
+				transitions.get(transitions.size()-1).setIndex(index);
+				control.addTransition(aux.start.tag, aux.end.tag, aux.condicion.charAt(0));
 			}
 			drawState();
 		}
@@ -127,14 +142,17 @@ public class CanvasFA extends JPanel{
         	t.drawTransition(g2);
         	if (t.condicion!=null) {
         		t.drawCondition(g2);
-			}
-        
+			}        
         }
         for(StateElement state : states) {
         	state.paintState(g2);
         }
     }
-	
+	public void restartAutomaton(){
+		states.removeAll(states);
+		transitions.removeAll(transitions);
+		this.drawState();
+	}
 	private double dist(float x1, float y1, float x2, float y2) {
 		return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 	}

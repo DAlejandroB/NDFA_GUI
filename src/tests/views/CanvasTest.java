@@ -17,7 +17,6 @@ public class CanvasTest {
 	JFrame f;
 	NorthValidate validate;
 	public CanvasTest() {
-		canvas = new CanvasFA(300,300);
 		validate = new NorthValidate();
 		menuBarr = new NorthPanel(new ActionListener() {
 			@Override
@@ -47,7 +46,6 @@ public class CanvasTest {
 
 	public void removeData(){
 		f.remove(canvas);
-		canvas  = new CanvasFA(300,300);
 		f.add(canvas, BorderLayout.CENTER);  
 		f.revalidate();
 		f.repaint();

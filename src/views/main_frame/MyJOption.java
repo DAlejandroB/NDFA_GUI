@@ -16,7 +16,7 @@ public class MyJOption {
 	
 	public String myWord(String text) {
 		String dataWord = JOptionPane.showInputDialog(null,text);
-	return dataWord;
+	return String.valueOf(dataWord.charAt(0));
 	}
 
 }

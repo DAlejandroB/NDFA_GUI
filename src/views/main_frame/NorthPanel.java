@@ -6,7 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JPanel;  
+import javax.swing.JPanel;
+
+import controller.Commands;  
 
 public class NorthPanel extends JPanel{
 
@@ -21,15 +23,15 @@ public class NorthPanel extends JPanel{
 		this.setVisible(true);
 	}
 
-	private void initComponents(ActionListener listener){
-		restartAutomaton.setText("Reiniciar");
-		restartAutomaton.addActionListener(listener);
-		restartAutomaton.setActionCommand("Reiniciar");
-		this.add(restartAutomaton);
-		validateWord.setText("Ingresar palabra");
-		validateWord.addActionListener(listener);
-		validateWord.setActionCommand("Palabra");
-		this.add(validateWord);
-	}
+    private void initComponents(ActionListener actionListener){
+        restartAutomaton.setText("Reiniciar");
+        restartAutomaton.addActionListener(actionListener);
+        restartAutomaton.setActionCommand(Commands.C_RESTART.toString());
+        this.add(restartAutomaton);
+        validateWord.addActionListener(actionListener);
+        validateWord.setActionCommand(Commands.C_VALIDATE_WORD.toString());
+        validateWord.setText("Ingresar palabra");
+        this.add(validateWord);
+    }
 
 }
