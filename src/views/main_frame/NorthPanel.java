@@ -10,9 +10,13 @@ import javax.swing.JPanel;
 
 import controller.Commands;  
 
-public class NorthPanel extends JPanel{
-
+public class NorthPanel extends JPanel{    
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton restartAutomaton, validateWord;
+
 
 	public NorthPanel(ActionListener listener){
 		restartAutomaton = new JButton();

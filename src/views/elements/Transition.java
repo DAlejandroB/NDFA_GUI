@@ -8,6 +8,7 @@ import views.main_frame.CanvasFA;
 
 public class Transition {
 	public String condicion;
+
 	public StateElement start;
 	public StateElement end;
 	private int index = 0;

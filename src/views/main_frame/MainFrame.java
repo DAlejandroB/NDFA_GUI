@@ -10,7 +10,11 @@ import java.awt.event.ActionListener;
 
 public class MainFrame extends JFrame{
 
-    private CanvasFA canvas;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private CanvasFA canvas;
     private NorthPanel menuBarr;
 	
     public MainFrame(ActionListener actionListener){
