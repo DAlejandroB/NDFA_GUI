@@ -2,7 +2,7 @@ package views.main_frame;
 
 import javax.swing.JFrame;
 
-import controller.ControlApp;
+import controller.ControlAutomata;
 
 import  java.awt.*;    
 
@@ -18,7 +18,7 @@ public class MainFrame extends JFrame{
     private NorthPanel menuBarr;
 	
     public MainFrame(ActionListener actionListener){
-        this.canvas = new CanvasFA(300, 300, (ControlApp) actionListener);
+        this.canvas = new CanvasFA(300, 300, (ControlAutomata) actionListener);
         this.menuBarr = new NorthPanel(actionListener);
         this.setLayout(new BorderLayout()); 
         this.setSize(800,800);

@@ -9,11 +9,11 @@ import javax.swing.JOptionPane;
 
 import views.main_frame.MainFrame;
 
-public class ControlApp implements ActionListener{
+public class ControlAutomata implements ActionListener{
 
     private MainFrame frame; //instancia de la vista, frame principal
     private NDFA finiteAutomata = new NDFA();
-    public ControlApp(){
+    public ControlAutomata(){
         frame = new MainFrame(this);
     }
 

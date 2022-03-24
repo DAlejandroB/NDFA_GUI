@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import controller.ControlApp;
+import controller.ControlAutomata;
 import utils.StateType;
 import views.elements.StateElement;
 import views.elements.Transition; 
@@ -28,7 +28,7 @@ public class CanvasFA extends JPanel{
     private ArrayList<Transition> transitions = new ArrayList<Transition>();
     private boolean creatingTransition = false;
     
-	public CanvasFA(int width, int height, ControlApp control) {
+	public CanvasFA(int width, int height, ControlAutomata control) {
 		
 		setBorder(BorderFactory.createLineBorder(Color.black));
 		
